@@ -1,0 +1,35 @@
+{
+  "name": "react-free-carousel",
+  "version": "0.0.0",
+  "description": "Carousel component for free flex-box layout built with React.",
+  "main": [
+    "build/react-free-carousel.js",
+    "build/react-free-carousel.js.map",
+    "build/react-free-carousel.min.js",
+    "build/react-free-carousel.min.js.map"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pvoznyuk/react-free-carousel.git"
+  },
+  "keywords": [
+    "component",
+    "react-component",
+    "react"
+  ],
+  "authors": [
+    "Pavlo Vozniuk <antipsih@ukr.net>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/pvoznyuk/react-free-carousel",
+  "dependencies": {
+    "react": "^0.14 || ^15"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

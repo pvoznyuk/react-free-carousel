@@ -1,0 +1,1 @@
+export {ReactFreeCarousel} from './Component';

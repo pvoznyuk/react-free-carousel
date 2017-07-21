@@ -1,0 +1,165 @@
+.app {
+  padding: 2em;
+}
+
+.carousel,
+.carousel3,
+.carousel2 {
+  width: 640px;
+  height: 200px;
+  background: #f0f5f0;
+  padding: 5px;
+}
+
+.carousel2 {
+  width: 475px;
+}
+
+.carousel3 {
+  width: 100%;
+}
+
+.tileSmall,
+.tileMedium,
+.tileBig,
+.tileBigDouble,
+.tileBigTripple,
+.tileFullwidth {
+  display: inline-block;
+  vertical-align: top;
+  width: 150px;
+  background-color: #ccc;
+  height: 100%;
+  flex: 1 1 auto;
+  overflow: hidden;
+
+  margin: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.tileSmall::after { content: ', Page: ' attr(data-page); }
+.tileMedium::after { content: ', Page: ' attr(data-page); }
+.tileBig::after { content: ', Page: ' attr(data-page); }
+.tileBigDouble::after { content: ', Page: ' attr(data-page); }
+.tileBigTripple::after { content: ', Page: ' attr(data-page); }
+.tileFullwidth::after { content: ', Page: ' attr(data-page); }
+
+.tileBig {
+  height: 200px;
+  line-height: 200px;
+  flex: 1 1 100%;
+}
+
+.tileBigDouble {
+  height: 200px;
+  line-height: 200px;
+  width: 310px;
+  flex: 1 1 100%;
+}
+
+.tileBigTripple {
+  height: 200px;
+  line-height: 200px;
+  width: 470px;
+  flex: 1 1 100%;
+}
+
+.tileMedium {
+  height: 90px;
+  line-height: 90px;
+  flex: 0 0 auto;
+}
+
+.tileSmall {
+  height: 56px;
+  line-height: 56px;
+  flex: 0 0 auto;
+}
+
+.tileFullwidth {
+  height: 100%;
+  width: 100%;
+}
+
+[role="navigation"] {
+  padding: 10px;
+  text-align: center;
+}
+
+[role="navigation"] button {
+  display: inline-block;
+  border: 0;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  background: grey;
+  margin: 0 2px;
+  text-indent: 1000px;
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+  transition: all .3s;
+}
+
+[role="navigation"] button[data-active='true'] {
+  background: orange;
+}
+
+.pagination[role="navigation"]  {
+  background: lightblue;
+}
+
+[role="navigation"] button.dot {
+  border-radius: 0;
+  text-indent: 0;
+  line-height: 16px;
+  height: 16px;
+  width: 16px;
+  font-family: 'Arial';
+  font-size: 9px;
+  text-align: center;
+  color: white;
+  background-color: blue;
+}
+
+[role="navigation"] button.active {
+  background-color: red;
+}
+
+.arrowPrev,
+.arrowNext {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  font-family: 'Arial';
+  background: orange;
+  border: 0;
+  outline: none;
+  top: 45%;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.arrowPrev:disabled,
+.arrowNext:disabled {
+  opacity: .2;
+  cursor: default;
+}
+
+.arrowPrev {
+  left: 0;
+}
+.arrowPrev::before {
+  content: "<";
+}
+
+.arrowNext {
+  right: 0;
+}
+.arrowNext::before {
+  content: ">";
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactFreeCarousel from '../../Component';
 import css from './App.css';
 
-const App = () => (
+const App = () =>
   <div className={css.app}>
     <h1>react-free-carousel</h1>
 
@@ -77,8 +77,6 @@ const App = () => (
       </ReactFreeCarousel>
     </div>
 
-  </div>
-);
-
+  </div>;
 
 export default App;

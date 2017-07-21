@@ -1,10 +1,5 @@
 # react-free-carousel [![npm](https://img.shields.io/npm/v/react-free-carousel.svg?style=flat-square)](https://www.npmjs.com/package/react-free-carousel)
 
-[![Gitter](https://img.shields.io/gitter/room/pvoznyuk/help.svg?style=flat-square)](https://gitter.im/pvoznyuk/help)
-
-[![CircleCI](https://img.shields.io/circleci/project/pvoznyuk/react-free-carousel.svg?style=flat-square&label=nix-build)](https://circleci.com/gh/pvoznyuk/react-free-carousel)
-[![AppVeyor](https://img.shields.io/appveyor/ci/pvoznyuk/react-free-carousel.svg?style=flat-square&label=win-build)](https://ci.appveyor.com/project/pvoznyuk/react-free-carousel)
-[![Coverage](https://img.shields.io/codecov/c/github/pvoznyuk/react-free-carousel.svg?style=flat-square)](https://codecov.io/github/pvoznyuk/react-free-carousel?branch=master)
 [![Dependencies](https://img.shields.io/david/pvoznyuk/react-free-carousel.svg?style=flat-square)](https://david-dm.org/pvoznyuk/react-free-carousel)
 [![Dev Dependencies](https://img.shields.io/david/dev/pvoznyuk/react-free-carousel.svg?style=flat-square)](https://david-dm.org/pvoznyuk/react-free-carousel#info=devDependencies)
 
@@ -19,40 +14,31 @@ npm install --save react react-free-carousel
 
 Don't forget to manually install peer dependencies (`react`) if you use npm@3.
 
-
-### Bower:
-```sh
-bower install --save https://unpkg.com/react-free-carousel/bower.zip
-```
-
-
-### 1998 Script Tag:
-```html
-<script src="https://unpkg.com/react/dist/react.js"></script>
-<script src="https://unpkg.com/react-free-carousel/build/react-free-carousel.js"></script>
-(Module exposed as `ReactFreeCarousel`)
-```
-
-
 ## Demo
 
 [http://pvoznyuk.github.io/react-free-carousel](http://pvoznyuk.github.io/react-free-carousel)
 
-## Codepen demo
-
-```js
-// TODO
-```
 
 ## Usage
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ReactFreeCarousel} from 'react-free-carousel';
+import ReactFreeCarousel from 'react-free-carousel';
 
 const App = () => (
-  <div>
-    <ReactFreeCarousel />
+  <div className={css.carousel}>
+    <ReactFreeCarousel>
+      <div className={css.tileBig}>1</div>
+      <div className={css.tileBigTripple}>2</div>
+      <div className={css.tileMedium}>3</div>
+      <div className={css.tileMedium}>4</div>
+      <div className={css.tileBigTripple}>5</div>
+      <div className={css.tileBig}>6</div>
+      <div className={css.tileBig}>7</div>
+      <div className={css.tileSmall}>8</div>
+      <div className={css.tileSmall}>9</div>
+      <div className={css.tileBigDouble}>10</div>
+    </ReactFreeCarousel>
   </div>
 );
 

@@ -18,6 +18,8 @@ Don't forget to manually install peer dependencies (`react`) if you use npm@3.
 
 [http://pvoznyuk.github.io/react-free-carousel](http://pvoznyuk.github.io/react-free-carousel)
 
+<img src="https://github.com/pvoznyuk/react-free-carousel/blob/master/src/example/example.gif?raw=true" alt="demo" />
+
 
 ## Usage
 ```js

@@ -246,14 +246,13 @@ export default class ReactFreeCarousel extends React.Component {
           this.renderArrows('prev')
         }
 
-        {arrows &&
-          this.renderArrows('next')
-        }
-
         {showPagination && this.state.pages + 1 >= minPagesToShowPagination &&
           this.renderPagination()
         }
 
+        {arrows &&
+          this.renderArrows('next')
+        }
       </div>
     );
   }

@@ -4,6 +4,10 @@ import css from './App.css';
 
 const App = () =>
   <div className={css.app}>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/atom-one-dark.min.css" />
+
     <h1>react-free-carousel</h1>
 
     <h2>No pagination</h2>

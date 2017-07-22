@@ -47,11 +47,25 @@ document.body.appendChild(appRoot);
 ReactDOM.render(<App />, appRoot);
 ```
 
-## Options
+### Properties
 
-```js
-// TODO
-```
+| Propertie                  | Type                | Default Value | Description |
+|----------------------------|---------------------|---------------|-------------|
+| `className`                | string              | null          | Just className.
+| `interval`                 | number              | 5000          | Slide changing interval.
+| `transitionSpeed`          | number              | 500           | Slide changing speed.
+| `height`                   | string or number    | '100%'        | Carousel height.
+| `width`                    | string or number    | '100%'        | Carousel width.
+| `autoplay`                 | boolean             | true          | Autostart carousel.
+| `page`                     | number              | 0             | Page to show.
+| `showPagination`           | boolean             | true          | Show pagination.
+| `minPagesToShowPagination` | number              | 2             | Min number of page to show the pagination.
+| `paginationClass`          | string              | ''            | Pagination className.
+| `paginationDotClass`       | string              | ''            | Pagination dot className.
+| `paginationDotActiveClass` | string              | ''            | Pagination active dot className.
+| `arrows`                   | boolean             | false         | Show/hide the prev/next arrows.
+| `arrowPrevClass`           | string              | ''            | Previous button className.
+| `arrowNextClass`           | string              | ''            | Next button className.
 
 ## Development and testing
 

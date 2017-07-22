@@ -289,7 +289,7 @@ ReactFreeCarousel.propTypes = {
 
 ReactFreeCarousel.defaultProps = {
   className: null,
-  interval: 3500,
+  interval: 5000,
   transitionSpeed: 500,
   height: '100%',
   width: '100%',

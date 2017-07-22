@@ -1,6 +1,5 @@
 .app {
   padding: 2em;
-  font-family: Arial;
 }
 
 .carousel,
@@ -119,7 +118,6 @@
   line-height: 16px;
   height: 16px;
   width: 16px;
-  font-family: 'Arial';
   font-size: 9px;
   text-align: center;
   color: white;
@@ -135,14 +133,15 @@
   position: absolute;
   width: 20px;
   height: 20px;
+  line-height: 20px;
   font-size: 16px;
-  font-family: 'Arial';
   background: orange;
   border: 0;
   outline: none;
   top: 45%;
   cursor: pointer;
   transition: all .3s;
+  padding: 0;
 }
 
 .arrowPrev:disabled,

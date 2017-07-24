@@ -9713,10 +9713,11 @@ var ReactFreeCarousel = function (_React$Component) {
         setTimeout(function () {
           _this3.reRender(false);
         }, 200);
+      } else if (nextProps.autoplay !== this.props.autoplay) {
+        setTimeout(function () {
+          _this3.playCarousel();
+        }, 210);
       }
-      setTimeout(function () {
-        _this3.playCarousel();
-      }, 210);
     }
   }, {
     key: 'componentWillUnmount',

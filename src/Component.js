@@ -38,10 +38,11 @@ export default class ReactFreeCarousel extends React.Component {
       setTimeout(() => {
         this.reRender(false);
       }, 200);
+    } else if (nextProps.autoplay !== this.props.autoplay) {
+      setTimeout(() => {
+        this.playCarousel();
+      }, 210);
     }
-    setTimeout(() => {
-      this.playCarousel();
-    }, 210);
   }
 
   componentWillUnmount() {

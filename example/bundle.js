@@ -9715,11 +9715,7 @@ var ReactFreeCarousel = function (_React$Component) {
         }, 200);
       }
 
-      if (nextProps.autoplay) {
-        this.playCarousel();
-      } else {
-        this.stopCarousel();
-      }
+      this.playCarousel();
     }
   }, {
     key: 'componentWillUnmount',
@@ -9761,6 +9757,7 @@ var ReactFreeCarousel = function (_React$Component) {
     value: function playCarousel() {
       var _this5 = this;
 
+      this.stopCarousel();
       if (this.state.pages > 0 && this.props.autoplay && this.props.interval) {
         this.slidingInterval = setInterval(function () {
           var page = _this5.state.page === _this5.state.pages ? 0 : _this5.state.page + 1;

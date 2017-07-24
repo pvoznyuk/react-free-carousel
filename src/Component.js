@@ -40,11 +40,7 @@ export default class ReactFreeCarousel extends React.Component {
       }, 200);
     }
 
-    if (nextProps.autoplay) {
-      this.playCarousel();
-    } else {
-      this.stopCarousel();
-    }
+    this.playCarousel();
   }
 
   componentWillUnmount() {
@@ -77,6 +73,7 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   playCarousel() {
+    this.stopCarousel();
     if (this.state.pages > 0 && this.props.autoplay && this.props.interval) {
       this.slidingInterval = setInterval(() => {
         const page = this.state.page === this.state.pages ? 0 : this.state.page + 1;

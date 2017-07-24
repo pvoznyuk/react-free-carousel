@@ -25,6 +25,10 @@ export default class ReactFreeCarousel extends React.Component {
     }, 100);
   }
 
+  componentWillReceiveProps() {
+    setTimeout(this.reRender, 100);
+  }
+
   componentWillUnmount() {
     this.stopCarousel();
     $(window).off('resize orientationchange', this.reRender);

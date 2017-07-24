@@ -9695,6 +9695,11 @@ var ReactFreeCarousel = function (_React$Component) {
       }, 100);
     }
   }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.reRender();
+    }
+  }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.stopCarousel();

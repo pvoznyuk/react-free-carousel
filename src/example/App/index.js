@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactFreeCarousel from '../../Component';
 import css from './App.css';
-import Highlight from 'react-highlight.js'
+import Highlight from 'react-highlight.js';
 
 const Panel = ({title, code, children}) =>
   <div className="panel panel-default">

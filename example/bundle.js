@@ -9714,7 +9714,9 @@ var ReactFreeCarousel = function (_React$Component) {
           _this3.reRender(false);
         }, 200);
       }
-      setTimeout(this.playCarousel, 210);
+      setTimeout(function () {
+        _this3.playCarousel();
+      }, 210);
     }
   }, {
     key: 'componentWillUnmount',

@@ -67,6 +67,7 @@ export default class ReactFreeCarousel extends React.Component {
         page,
         pages: totalPages
       }, () => {
+        this.gotoPage(page);
         this.playCarousel();
       });
     }, this.props.transitionSpeed + 50);

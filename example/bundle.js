@@ -9748,6 +9748,7 @@ var ReactFreeCarousel = function (_React$Component) {
           page: page,
           pages: totalPages
         }, function () {
+          _this4.gotoPage(page);
           _this4.playCarousel();
         });
       }, this.props.transitionSpeed + 50);

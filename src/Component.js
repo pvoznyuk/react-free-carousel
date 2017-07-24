@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import debounce from 'lodash/debounce';
-import capitalize from 'lodash/capitalize';
+import debounce from 'lodash.debounce';
+import capitalize from 'lodash.capitalize';
 
 export default class ReactFreeCarousel extends React.Component {
   constructor(props) {

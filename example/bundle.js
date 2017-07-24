@@ -9755,6 +9755,13 @@ var ReactFreeCarousel = function (_React$Component) {
       }, this.props.transitionSpeed + 50);
     }
   }, {
+    key: 'stopCarousel',
+    value: function stopCarousel() {
+      if (this.slidingInterval) {
+        clearInterval(this.slidingInterval);
+      }
+    }
+  }, {
     key: 'playCarousel',
     value: function playCarousel() {
       var _this5 = this;
@@ -9766,13 +9773,6 @@ var ReactFreeCarousel = function (_React$Component) {
 
           _this5.gotoPage(page);
         }, this.props.interval);
-      }
-    }
-  }, {
-    key: 'stopCarousel',
-    value: function stopCarousel() {
-      if (this.slidingInterval) {
-        clearInterval(this.slidingInterval);
       }
     }
   }, {

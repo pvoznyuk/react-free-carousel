@@ -74,6 +74,12 @@ export default class ReactFreeCarousel extends React.Component {
     }, this.props.transitionSpeed + 50);
   }
 
+  stopCarousel() {
+    if (this.slidingInterval) {
+      clearInterval(this.slidingInterval);
+    }
+  }
+
   playCarousel() {
     this.stopCarousel();
     if (this.state.pages > 0 && this.props.autoplay && this.props.interval) {
@@ -82,12 +88,6 @@ export default class ReactFreeCarousel extends React.Component {
 
         this.gotoPage(page);
       }, this.props.interval);
-    }
-  }
-
-  stopCarousel() {
-    if (this.slidingInterval) {
-      clearInterval(this.slidingInterval);
     }
   }
 

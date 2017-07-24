@@ -196,6 +196,29 @@ const App = () =>
       </div>
     </Panel>
 
+
+    <Panel
+      title="Zoomed carousel"
+      code={``}>
+      <div className={css.carousel2} style={{transform: 'scale(0.65)', transformOrigin: '0px 0px 0px'}}>
+        <ReactFreeCarousel>
+          <div className={css.tileBig}>1</div>
+          <div className={css.tileMedium}>2</div>
+          <div className={css.tileMedium}>3</div>
+          <div className={css.tileBigDouble}>4</div>
+          <div className={css.tileMedium}>5</div>
+          <div className={css.tileSmall}>6</div>
+          <div className={css.tileBig}>7</div>
+          <div className={css.tileSmall}>8</div>
+          <div className={css.tileSmall}>9</div>
+          <div className={css.tileSmall}>10</div>
+          <div className={css.tileBig}>11</div>
+          <div className={css.tileBigDouble}>12</div>
+          <div className={css.tileSmall}>13</div>
+        </ReactFreeCarousel>
+      </div>
+    </Panel>
+
   </div>
 
 export default App;

@@ -88,15 +88,15 @@ export default class ReactFreeCarousel extends React.Component {
   calculateTotalPages() {
     const $container = $(this.container);
     const $children = $container.children();
-    const wrapperWidth = this.wrapper.getBoundingClientRect().width;
+    const wrapperWidth = this.wrapper.clientWidth;
     const offsetPage = new Map();
     const pageOffset = new Map();
     let pages = 0;
 
     $children.each((index, tile) => {
       const $tile = $(tile);
-      const tileLeft = $tile.position().left;
-      const tileWidth = $tile.outerWidth();
+      const tileLeft = tile.offsetLeft;
+      const tileWidth = tile.clientWidth;
 
       if (offsetPage.has(tileLeft)) {
         $tile.attr('data-first', 'false');

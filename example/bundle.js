@@ -9695,9 +9695,9 @@ var ReactFreeCarousel = function (_React$Component) {
       }, 100);
     }
   }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      this.reRender();
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps() {
+      setTimeout(this.reRender, 100);
     }
   }, {
     key: 'componentWillUnmount',

@@ -9664,6 +9664,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var RESIZE = 'resize orientationchange';
 var toArray = function toArray(item) {
   return item instanceof Array ? item : [item];
 };
@@ -9700,7 +9701,7 @@ var ReactFreeCarousel = function (_React$Component) {
         } else if (_this2.props.page > 0) {
           _this2.gotoPage(_this2.props.page);
         }
-        (0, _jquery2.default)(window).on('resize orientationchange', (0, _lodash2.default)(_this2.reRender, 500));
+        (0, _jquery2.default)(window).on(RESIZE, (0, _lodash2.default)(_this2.reRender, 500));
       }, 100);
     }
   }, {
@@ -9718,7 +9719,7 @@ var ReactFreeCarousel = function (_React$Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.stopCarousel();
-      (0, _jquery2.default)(window).off('resize orientationchange', this.reRender);
+      (0, _jquery2.default)(window).off(RESIZE, this.reRender);
     }
   }, {
     key: 'reRender',
@@ -9729,6 +9730,10 @@ var ReactFreeCarousel = function (_React$Component) {
 
       var totalPages = this.calculateTotalPages();
       var page = scrollToStart && this.state.pages !== totalPages ? 0 : this.state.page;
+
+      if (page > totalPages) {
+        page = totalPages;
+      }
 
       this.stopCarousel();
 

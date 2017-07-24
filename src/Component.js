@@ -4,6 +4,7 @@ import $ from 'jquery';
 import debounce from 'lodash.debounce';
 import capitalize from 'lodash.capitalize';
 
+const RESIZE = 'resize orientationchange';
 const toArray = item => item instanceof Array ? item : [item];
 
 export default class ReactFreeCarousel extends React.Component {
@@ -28,7 +29,7 @@ export default class ReactFreeCarousel extends React.Component {
       } else if (this.props.page > 0) {
         this.gotoPage(this.props.page);
       }
-      $(window).on('resize orientationchange', debounce(this.reRender, 500));
+      $(window).on(RESIZE, debounce(this.reRender, 500));
     }, 100);
   }
 
@@ -42,12 +43,16 @@ export default class ReactFreeCarousel extends React.Component {
 
   componentWillUnmount() {
     this.stopCarousel();
-    $(window).off('resize orientationchange', this.reRender);
+    $(window).off(RESIZE, this.reRender);
   }
 
   reRender(scrollToStart = true) {
     const totalPages = this.calculateTotalPages();
-    const page = scrollToStart && this.state.pages !== totalPages ? 0 : this.state.page;
+    let page = scrollToStart && this.state.pages !== totalPages ? 0 : this.state.page;
+
+    if (page > totalPages) {
+      page = totalPages;
+    }
 
     this.stopCarousel();
 

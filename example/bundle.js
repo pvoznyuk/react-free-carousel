@@ -9697,7 +9697,11 @@ var ReactFreeCarousel = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
-      setTimeout(this.reRender, 100);
+      var _this3 = this;
+
+      setTimeout(function () {
+        _this3.reRender(false);
+      }, 100);
     }
   }, {
     key: 'componentWillUnmount',
@@ -9708,31 +9712,38 @@ var ReactFreeCarousel = function (_React$Component) {
   }, {
     key: 'reRender',
     value: function reRender() {
-      var _this3 = this;
+      var _this4 = this;
+
+      var scrollToStart = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      var totalPages = this.calculateTotalPages();
+      var page = scrollToStart && this.state.pages !== totalPages ? 0 : this.state.page;
 
       this.stopCarousel();
-      (0, _jquery2.default)(this.container).css('margin-left', '0px');
-      setTimeout(function () {
-        var totalPages = _this3.calculateTotalPages();
 
-        _this3.setState({
-          page: 0,
+      if (page === 0) {
+        (0, _jquery2.default)(this.container).css('margin-left', '0px');
+      }
+
+      setTimeout(function () {
+        _this4.setState({
+          page: page,
           pages: totalPages
         }, function () {
-          _this3.playCarousel();
+          _this4.playCarousel();
         });
       }, this.props.transitionSpeed + 50);
     }
   }, {
     key: 'playCarousel',
     value: function playCarousel() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this.state.pages > 0 && this.props.autoplay && this.props.interval) {
         this.slidingInterval = setInterval(function () {
-          var page = _this4.state.page === _this4.state.pages ? 0 : _this4.state.page + 1;
+          var page = _this5.state.page === _this5.state.pages ? 0 : _this5.state.page + 1;
 
-          _this4.gotoPage(page);
+          _this5.gotoPage(page);
         }, this.props.interval);
       }
     }
@@ -9746,13 +9757,13 @@ var ReactFreeCarousel = function (_React$Component) {
   }, {
     key: 'gotoPage',
     value: function gotoPage(page) {
-      var _this5 = this;
+      var _this6 = this;
 
       var newPage = page > this.state.pages ? 0 : page;
 
       this.stopCarousel();
       this.setState({ page: newPage }, function () {
-        _this5.playCarousel();
+        _this6.playCarousel();
       });
       (0, _jquery2.default)(this.container).css('margin-left', '-' + this.pageToOffset(newPage) + 'px');
     }
@@ -9830,14 +9841,14 @@ var ReactFreeCarousel = function (_React$Component) {
   }, {
     key: 'renderPagination',
     value: function renderPagination() {
-      var _this6 = this;
+      var _this7 = this;
 
       return _react2.default.createElement(
         'div',
         {
           className: this.props.paginationClass,
           ref: function ref(node) {
-            _this6.pagination = node;
+            _this7.pagination = node;
           },
           role: 'navigation' },
         [].concat(_toConsumableArray(Array(this.state.pages + 1))).map(function (e, i) {
@@ -9845,11 +9856,11 @@ var ReactFreeCarousel = function (_React$Component) {
             'button',
             {
               'aria-label': 'Goto Page ' + (i + 1),
-              className: '\n                ' + _this6.props.paginationDotClass + '\n                ' + (i === _this6.state.page ? _this6.props.paginationDotActiveClass : ''),
-              'data-active': i === _this6.state.page ? 'true' : 'false',
+              className: '\n                ' + _this7.props.paginationDotClass + '\n                ' + (i === _this7.state.page ? _this7.props.paginationDotActiveClass : ''),
+              'data-active': i === _this7.state.page ? 'true' : 'false',
               key: i,
               onClick: function onClick() {
-                _this6.gotoPage(i);
+                _this7.gotoPage(i);
               } },
             i + 1
           );
@@ -9859,14 +9870,14 @@ var ReactFreeCarousel = function (_React$Component) {
   }, {
     key: 'renderArrows',
     value: function renderArrows(kind) {
-      var _this7 = this;
+      var _this8 = this;
 
       var calculateNextPage = function calculateNextPage(direction) {
-        if (direction === 'next' && _this7.state.page < _this7.state.pages) {
-          return _this7.state.page + 1;
+        if (direction === 'next' && _this8.state.page < _this8.state.pages) {
+          return _this8.state.page + 1;
         }
-        if (direction === 'prev' && _this7.state.page > 0) {
-          return _this7.state.page - 1;
+        if (direction === 'prev' && _this8.state.page > 0) {
+          return _this8.state.page - 1;
         }
         return null;
       };
@@ -9877,7 +9888,7 @@ var ReactFreeCarousel = function (_React$Component) {
         className: this.props['arrow' + (0, _lodash4.default)(kind) + 'Class'],
         disabled: nextPage === null,
         onClick: function onClick() {
-          _this7.gotoPage(nextPage);
+          _this8.gotoPage(nextPage);
         },
         role: 'button',
         type: 'button' });
@@ -9885,7 +9896,7 @@ var ReactFreeCarousel = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this8 = this;
+      var _this9 = this;
 
       var _props = this.props,
           children = _props.children,
@@ -9929,7 +9940,7 @@ var ReactFreeCarousel = function (_React$Component) {
         {
           className: className,
           ref: function ref(node) {
-            _this8.wrapper = node;
+            _this9.wrapper = node;
           },
           style: wrapperStyling },
         _react2.default.createElement(
@@ -9939,7 +9950,7 @@ var ReactFreeCarousel = function (_React$Component) {
             'div',
             {
               ref: function ref(node) {
-                _this8.container = node;
+                _this9.container = node;
               },
               style: containerStyling },
             childrenToRender && childrenToRender.map(this.renderTile)

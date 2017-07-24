@@ -26,7 +26,9 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   componentWillReceiveProps() {
-    setTimeout(this.reRender, 100);
+    setTimeout(() => {
+      this.reRender(false);
+    }, 100);
   }
 
   componentWillUnmount() {
@@ -34,14 +36,19 @@ export default class ReactFreeCarousel extends React.Component {
     $(window).off('resize orientationchange', this.reRender);
   }
 
-  reRender() {
-    this.stopCarousel();
-    $(this.container).css('margin-left', '0px');
-    setTimeout(() => {
-      const totalPages = this.calculateTotalPages();
+  reRender(scrollToStart = true) {
+    const totalPages = this.calculateTotalPages();
+    const page = scrollToStart && this.state.pages !== totalPages ? 0 : this.state.page;
 
+    this.stopCarousel();
+
+    if (page === 0) {
+      $(this.container).css('margin-left', '0px');
+    }
+
+    setTimeout(() => {
       this.setState({
-        page: 0,
+        page,
         pages: totalPages
       }, () => {
         this.playCarousel();

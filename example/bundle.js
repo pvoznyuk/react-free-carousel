@@ -9709,13 +9709,12 @@ var ReactFreeCarousel = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
-      if (toArray(nextProps.children).length !== toArray(this.props.children).length) {
-        setTimeout(function () {
+      setTimeout(function () {
+        if (toArray(nextProps.children).length !== toArray(_this3.props.children).length) {
           _this3.reRender(false);
-        }, 200);
-      }
-
-      this.playCarousel();
+        }
+        _this3.playCarousel();
+      }, 200);
     }
   }, {
     key: 'componentWillUnmount',

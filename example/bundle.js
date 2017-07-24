@@ -9705,10 +9705,10 @@ var ReactFreeCarousel = function (_React$Component) {
     }
   }, {
     key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(newProps) {
+    value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
-      if (toArray(newProps.children).length !== newProps(this.props.children).length) {
+      if (toArray(nextProps.children).length !== toArray(this.props.children).length) {
         setTimeout(function () {
           _this3.reRender(false);
         }, 200);

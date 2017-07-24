@@ -39,6 +39,12 @@ export default class ReactFreeCarousel extends React.Component {
         this.reRender(false);
       }, 200);
     }
+
+    if (nextProps.autoplay) {
+      this.playCarousel();
+    } else {
+      this.stopCarousel();
+    }
   }
 
   componentWillUnmount() {

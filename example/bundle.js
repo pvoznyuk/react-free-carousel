@@ -9714,6 +9714,12 @@ var ReactFreeCarousel = function (_React$Component) {
           _this3.reRender(false);
         }, 200);
       }
+
+      if (nextProps.autoplay) {
+        this.playCarousel();
+      } else {
+        this.stopCarousel();
+      }
     }
   }, {
     key: 'componentWillUnmount',

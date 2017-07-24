@@ -200,8 +200,8 @@ const App = () =>
     <Panel
       title="Zoomed carousel"
       code={``}>
-      <div className={css.carousel2} style={{transform: 'scale(0.65)', transformOrigin: '0px 0px 0px'}}>
-        <ReactFreeCarousel>
+      <div className={css.carousel2} style={{transform: 'scale(0.67)', transformOrigin: '0px 0px 0px'}}>
+        <ReactFreeCarousel slide={10} >
           <div className={css.tileBig}>1</div>
           <div className={css.tileMedium}>2</div>
           <div className={css.tileMedium}>3</div>

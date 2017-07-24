@@ -9544,10 +9544,10 @@ var App = function App() {
         code: '' },
       _react2.default.createElement(
         'div',
-        { className: _App2.default.carousel2, style: { transform: 'scale(0.65)', transformOrigin: '0px 0px 0px' } },
+        { className: _App2.default.carousel2, style: { transform: 'scale(0.67)', transformOrigin: '0px 0px 0px' } },
         _react2.default.createElement(
           _Component2.default,
-          null,
+          { slide: 10 },
           _react2.default.createElement(
             'div',
             { className: _App2.default.tileBig },
@@ -9664,6 +9664,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var toArray = function toArray(item) {
+  return item instanceof Array ? item : [item];
+};
+
 var ReactFreeCarousel = function (_React$Component) {
   _inherits(ReactFreeCarousel, _React$Component);
 
@@ -9691,17 +9695,24 @@ var ReactFreeCarousel = function (_React$Component) {
 
         _this2.setState({ pages: totalPages });
         _this2.playCarousel();
+        if (_this2.props.slide > 0) {
+          _this2.gotoTile(_this2.props.slide);
+        } else if (_this2.props.page > 0) {
+          _this2.gotoPage(_this2.props.page);
+        }
         (0, _jquery2.default)(window).on('resize orientationchange', (0, _lodash2.default)(_this2.reRender, 500));
       }, 100);
     }
   }, {
     key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps() {
+    value: function componentWillReceiveProps(newProps) {
       var _this3 = this;
 
-      setTimeout(function () {
-        _this3.reRender(false);
-      }, 100);
+      if (toArray(newProps.children).length !== newProps(this.props.children).length) {
+        setTimeout(function () {
+          _this3.reRender(false);
+        }, 200);
+      }
     }
   }, {
     key: 'componentWillUnmount',
@@ -9766,6 +9777,16 @@ var ReactFreeCarousel = function (_React$Component) {
         _this6.playCarousel();
       });
       (0, _jquery2.default)(this.container).css('margin-left', '-' + this.pageToOffset(newPage) + 'px');
+    }
+  }, {
+    key: 'gotoTile',
+    value: function gotoTile(index) {
+      var $container = (0, _jquery2.default)(this.container);
+      var $tile = (0, _jquery2.default)($container.children().get(index));
+
+      if ($tile.length) {
+        this.gotoPage(Number($tile.attr('data-page')));
+      }
     }
   }, {
     key: 'pageToOffset',
@@ -9979,6 +10000,7 @@ ReactFreeCarousel.propTypes = {
   showPagination: _propTypes2.default.bool,
   transitionSpeed: _propTypes2.default.number,
   page: _propTypes2.default.number,
+  slide: _propTypes2.default.number,
   minPagesToShowPagination: _propTypes2.default.number,
   paginationClass: _propTypes2.default.string,
   paginationDotClass: _propTypes2.default.string,
@@ -9997,6 +10019,7 @@ ReactFreeCarousel.defaultProps = {
   autoplay: true,
   showPagination: true,
   page: 0,
+  slide: null,
   minPagesToShowPagination: 2,
   paginationClass: '',
   paginationDotClass: '',

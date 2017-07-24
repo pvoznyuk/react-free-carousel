@@ -59,7 +59,8 @@ ReactDOM.render(<App />, appRoot);
 | `height`                   | string or number    | '100%'        | Carousel height.
 | `width`                    | string or number    | '100%'        | Carousel width.
 | `autoplay`                 | boolean             | true          | Autostart carousel.
-| `page`                     | number              | 0             | Page to show.
+| `page`                     | number              | 0             | Page to show (0-indexed).
+| `slide`                    | number              | null          | Slide to scroll to (0-indexed).
 | `showPagination`           | boolean             | true          | Show pagination.
 | `minPagesToShowPagination` | number              | 2             | Min number of page to show the pagination.
 | `paginationClass`          | string              | ''            | Pagination className.

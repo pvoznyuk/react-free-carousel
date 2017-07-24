@@ -4,6 +4,8 @@ import $ from 'jquery';
 import debounce from 'lodash.debounce';
 import capitalize from 'lodash.capitalize';
 
+const toArray = item => item instanceof Array ? item : [item];
+
 export default class ReactFreeCarousel extends React.Component {
   constructor(props) {
     super(props);
@@ -21,14 +23,21 @@ export default class ReactFreeCarousel extends React.Component {
 
       this.setState({pages: totalPages});
       this.playCarousel();
+      if (this.props.slide > 0) {
+        this.gotoTile(this.props.slide);
+      } else if (this.props.page > 0) {
+        this.gotoPage(this.props.page);
+      }
       $(window).on('resize orientationchange', debounce(this.reRender, 500));
     }, 100);
   }
 
-  componentWillReceiveProps() {
-    setTimeout(() => {
-      this.reRender(false);
-    }, 100);
+  componentWillReceiveProps(newProps) {
+    if (toArray(newProps.children).length !== newProps(this.props.children).length) {
+      setTimeout(() => {
+        this.reRender(false);
+      }, 200);
+    }
   }
 
   componentWillUnmount() {
@@ -80,6 +89,15 @@ export default class ReactFreeCarousel extends React.Component {
       this.playCarousel();
     });
     $(this.container).css('margin-left', `-${this.pageToOffset(newPage)}px`);
+  }
+
+  gotoTile(index) {
+    const $container = $(this.container);
+    const $tile = $($container.children().get(index));
+
+    if ($tile.length) {
+      this.gotoPage(Number($tile.attr('data-page')));
+    }
   }
 
   pageToOffset(page) {
@@ -288,6 +306,7 @@ ReactFreeCarousel.propTypes = {
   showPagination: PropTypes.bool,
   transitionSpeed: PropTypes.number,
   page: PropTypes.number,
+  slide: PropTypes.number,
   minPagesToShowPagination: PropTypes.number,
   paginationClass: PropTypes.string,
   paginationDotClass: PropTypes.string,
@@ -306,6 +325,7 @@ ReactFreeCarousel.defaultProps = {
   autoplay: true,
   showPagination: true,
   page: 0,
+  slide: null,
   minPagesToShowPagination: 2,
   paginationClass: '',
   paginationDotClass: '',

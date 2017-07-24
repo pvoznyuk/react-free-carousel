@@ -9536,6 +9536,85 @@ var App = function App() {
           )
         )
       )
+    ),
+    _react2.default.createElement(
+      Panel,
+      {
+        title: 'Zoomed carousel',
+        code: '' },
+      _react2.default.createElement(
+        'div',
+        { className: _App2.default.carousel2, style: { transform: 'scale(0.65)', transformOrigin: '0px 0px 0px' } },
+        _react2.default.createElement(
+          _Component2.default,
+          null,
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileBig },
+            '1'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileMedium },
+            '2'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileMedium },
+            '3'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileBigDouble },
+            '4'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileMedium },
+            '5'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileSmall },
+            '6'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileBig },
+            '7'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileSmall },
+            '8'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileSmall },
+            '9'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileSmall },
+            '10'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileBig },
+            '11'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileBigDouble },
+            '12'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: _App2.default.tileSmall },
+            '13'
+          )
+        )
+      )
     )
   );
 };
@@ -9693,15 +9772,15 @@ var ReactFreeCarousel = function (_React$Component) {
     value: function calculateTotalPages() {
       var $container = (0, _jquery2.default)(this.container);
       var $children = $container.children();
-      var wrapperWidth = this.wrapper.getBoundingClientRect().width;
+      var wrapperWidth = this.wrapper.clientWidth;
       var offsetPage = new Map();
       var pageOffset = new Map();
       var pages = 0;
 
       $children.each(function (index, tile) {
         var $tile = (0, _jquery2.default)(tile);
-        var tileLeft = $tile.position().left;
-        var tileWidth = $tile.outerWidth();
+        var tileLeft = tile.offsetLeft - parseInt(window.getComputedStyle(tile).marginLeft, 10);
+        var tileWidth = tile.clientWidth;
 
         if (offsetPage.has(tileLeft)) {
           $tile.attr('data-first', 'false');

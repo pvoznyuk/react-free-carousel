@@ -95,7 +95,7 @@ export default class ReactFreeCarousel extends React.Component {
 
     $children.each((index, tile) => {
       const $tile = $(tile);
-      const tileLeft = tile.offsetLeft;
+      const tileLeft = tile.offsetLeft - parseInt(window.getComputedStyle(tile).marginLeft, 10);
       const tileWidth = tile.clientWidth;
 
       if (offsetPage.has(tileLeft)) {

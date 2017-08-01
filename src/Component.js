@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
 import debounce from 'lodash.debounce';
 import capitalize from 'lodash.capitalize';
 
-const RESIZE = 'resize orientationchange';
+const RENDER_DEBOUNCING_TIMEOUT = 500;
 const toArray = item => item instanceof Array ? item : [item];
 
 export default class ReactFreeCarousel extends React.Component {
@@ -19,6 +18,8 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   componentDidMount() {
+    this.debouncingRender = debounce(this.reRender, RENDER_DEBOUNCING_TIMEOUT).bind(this);
+
     setTimeout(() => {
       const totalPages = this.calculateTotalPages();
 
@@ -29,7 +30,8 @@ export default class ReactFreeCarousel extends React.Component {
       } else if (this.props.page > 0) {
         this.gotoPage(this.props.page);
       }
-      $(window).on(RESIZE, debounce(this.reRender, 500));
+      window.addEventListener('resize', this.debouncingRender);
+      window.addEventListener('orientationchange', this.debouncingRender);
     }, 100);
   }
 
@@ -47,7 +49,8 @@ export default class ReactFreeCarousel extends React.Component {
 
   componentWillUnmount() {
     this.stopCarousel();
-    $(window).off(RESIZE, this.reRender);
+    window.removeEventListener('resize', this.debouncingRender);
+    window.removeEventListener('orientationchange', this.debouncingRender);
   }
 
   reRender(scrollToStart = true) {
@@ -61,7 +64,7 @@ export default class ReactFreeCarousel extends React.Component {
     this.stopCarousel();
 
     if (page === 0) {
-      $(this.container).css('margin-left', '0px');
+      this.container.style.marginLeft = '0px';
     }
 
     setTimeout(() => {
@@ -99,24 +102,22 @@ export default class ReactFreeCarousel extends React.Component {
     this.setState({page: newPage}, () => {
       this.playCarousel();
     });
-    $(this.container).css('margin-left', `-${this.pageToOffset(newPage)}px`);
+    this.container.style.marginLeft = `-${this.pageToOffset(newPage)}px`;
   }
 
   gotoTile(index) {
-    const $container = $(this.container);
-    const $tile = $($container.children().get(index));
+    const tile = this.container.children[index];
 
-    if ($tile.length) {
-      this.gotoPage(Number($tile.attr('data-page')));
+    if (tile) {
+      this.gotoPage(Number(tile.getAttribute('data-page')));
     }
   }
 
   pageToOffset(page) {
-    const $container = $(this.container);
-    const $target = $container.children(`[data-page=${page}][data-first=true]`);
+    const pageElement = this.container.querySelector(`[data-page="${page}"]`);
 
-    if ($target.length) {
-      return parseInt($($target.get(0)).attr('data-offset'), 10);
+    if (pageElement && pageElement.getAttribute('data-first') === 'true') {
+      return parseInt(pageElement.getAttribute('data-offset'), 10);
     }
     return 0;
   }
@@ -126,43 +127,42 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   calculateTotalPages() {
-    const $container = $(this.container);
-    const $children = $container.children();
     const wrapperWidth = this.wrapper.clientWidth;
     const offsetPage = new Map();
     const pageOffset = new Map();
     let pages = 0;
 
-    $children.each((index, tile) => {
-      const $tile = $(tile);
-      const tileLeft = tile.offsetLeft - parseInt(window.getComputedStyle(tile).marginLeft, 10);
-      const tileWidth = tile.clientWidth;
+    if (this.container.children.length) {
+      Array.from(this.container.children).forEach((tile, index) => {
+        const tileLeft = tile.offsetLeft - parseInt(window.getComputedStyle(tile).marginLeft, 10);
+        const tileWidth = tile.clientWidth;
 
-      if (offsetPage.has(tileLeft)) {
-        $tile.attr('data-first', 'false');
-        $tile.attr('data-page', offsetPage.get(tileLeft));
-        $tile.attr('data-offset', tileLeft);
-      } else {
-        const currentPageOffset = pageOffset.get(pages) || 0;
-
-        // check if the tile fully fit in the current page
-        if (tileLeft >= currentPageOffset &&
-            tileLeft + tileWidth <= currentPageOffset + wrapperWidth) {
-          if (index === 0) {
-            $tile.attr('data-first', 'true');
-          }
+        if (offsetPage.has(tileLeft)) {
+          tile.setAttribute('data-first', 'false');
+          tile.setAttribute('data-page', offsetPage.get(tileLeft));
+          tile.setAttribute('data-offset', tileLeft);
         } else {
-          pages = pages + 1;
-          $tile.attr('data-first', 'true');
+          const currentPageOffset = pageOffset.get(pages) || 0;
+
+          // check if the tile fully fit in the current page
+          if (tileLeft >= currentPageOffset &&
+            tileLeft + tileWidth <= currentPageOffset + wrapperWidth) {
+            if (index === 0) {
+              tile.setAttribute('data-first', 'true');
+            }
+          } else {
+            pages = pages + 1;
+            tile.setAttribute('data-first', 'true');
+          }
+          tile.setAttribute('data-page', pages);
+          tile.setAttribute('data-offset', tileLeft);
+          offsetPage.set(tileLeft, pages);
+          if (!pageOffset.has(pages)) {
+            pageOffset.set(pages, tileLeft);
+          }
         }
-        $tile.attr('data-page', pages);
-        $tile.attr('data-offset', tileLeft);
-        offsetPage.set(tileLeft, pages);
-        if (!pageOffset.has(pages)) {
-          pageOffset.set(pages, tileLeft);
-        }
-      }
-    });
+      });
+    }
 
     return pages;
   }

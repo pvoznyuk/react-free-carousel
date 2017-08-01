@@ -39,7 +39,6 @@
     "react-highlight.js": "1.0.5"
   },
   "dependencies": {
-    "jquery": "3.2.1",
     "lodash.capitalize": "4.2.1",
     "lodash.debounce": "4.0.8"
   }

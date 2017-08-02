@@ -193,7 +193,7 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   renderPagination() {
-    const Pagination = styled.div`
+    const Pagination = this.props.paginationClass ? styled.div`` : styled.div`
       position: absolute;
       text-align: center;
       left: 10px;
@@ -201,7 +201,7 @@ export default class ReactFreeCarousel extends React.Component {
       bottom: 0px;
     `;
 
-    const PaginationDot = styled.button`
+    const PaginationDot = this.props.paginationDotClass ? styled.button`` : styled.button`
       display: inline-block;
       border: 0;
       border-radius: 50%;
@@ -259,8 +259,8 @@ export default class ReactFreeCarousel extends React.Component {
     };
 
     const nextPage = calculateNextPage(kind);
-    const classPart = `${capitalize(kind)}Class`;
-    const Arrow = styled.button`
+    const className = this.props[`arrow${capitalize(kind)}Class`];
+    const Arrow = className ? styled.button`` : styled.button`
       position: absolute;
       font-size: 16px;
       border: 0;
@@ -295,7 +295,7 @@ export default class ReactFreeCarousel extends React.Component {
 
     return (
       <Arrow
-        className={this.props[`arrow${classPart}`]}
+        className={className}
         direction={kind}
         disabled={nextPage === null}
         onClick={() => {

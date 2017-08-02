@@ -9777,9 +9777,10 @@ exports.ReactFreeCarouselTile = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n      position: absolute;\n      text-align: center;\n      left: 10px;\n      right: 10px;\n      bottom: 0px;\n    '], ['\n      position: absolute;\n      text-align: center;\n      left: 10px;\n      right: 10px;\n      bottom: 0px;\n    ']),
-    _templateObject2 = _taggedTemplateLiteral(['\n      display: inline-block;\n      border: 0;\n      border-radius: 50%;\n      width: 12px;\n      height: 12px;\n      background: white;\n      margin: 0 2px;\n      text-indent: 1000px;\n      overflow: hidden;\n      cursor: pointer;\n      outline: none;\n      transition: all .3s;\n\n      &[data-active=\'true\'] {\n        background: orange;\n      }\n    '], ['\n      display: inline-block;\n      border: 0;\n      border-radius: 50%;\n      width: 12px;\n      height: 12px;\n      background: white;\n      margin: 0 2px;\n      text-indent: 1000px;\n      overflow: hidden;\n      cursor: pointer;\n      outline: none;\n      transition: all .3s;\n\n      &[data-active=\'true\'] {\n        background: orange;\n      }\n    ']),
-    _templateObject3 = _taggedTemplateLiteral(['\n      position: absolute;\n      font-size: 16px;\n      border: 0;\n      outline: none;\n      top: 45%;\n      cursor: pointer;\n      transition: all .3s;\n      padding: 0;\n      color: orange;\n      font-family: Arial;\n      background: none;\n\n      &:disabled {\n        opacity: .2;\n        cursor: default;\n      }\n\n      &[direction="prev"] {\n        left: 5px;\n        &::before {\n          content: "\\25C0";\n        }\n      }\n\n      &[direction="next"] {\n        right: 5px;\n        &::before {\n          content: "\\25b6";\n        }\n      }\n    '], ['\n      position: absolute;\n      font-size: 16px;\n      border: 0;\n      outline: none;\n      top: 45%;\n      cursor: pointer;\n      transition: all .3s;\n      padding: 0;\n      color: orange;\n      font-family: Arial;\n      background: none;\n\n      &:disabled {\n        opacity: .2;\n        cursor: default;\n      }\n\n      &[direction="prev"] {\n        left: 5px;\n        &::before {\n          content: "\\\\25C0";\n        }\n      }\n\n      &[direction="next"] {\n        right: 5px;\n        &::before {\n          content: "\\\\25b6";\n        }\n      }\n    ']);
+var _templateObject = _taggedTemplateLiteral([''], ['']),
+    _templateObject2 = _taggedTemplateLiteral(['\n      position: absolute;\n      text-align: center;\n      left: 10px;\n      right: 10px;\n      bottom: 0px;\n    '], ['\n      position: absolute;\n      text-align: center;\n      left: 10px;\n      right: 10px;\n      bottom: 0px;\n    ']),
+    _templateObject3 = _taggedTemplateLiteral(['\n      display: inline-block;\n      border: 0;\n      border-radius: 50%;\n      width: 12px;\n      height: 12px;\n      background: white;\n      margin: 0 2px;\n      text-indent: 1000px;\n      overflow: hidden;\n      cursor: pointer;\n      outline: none;\n      transition: all .3s;\n\n      &[data-active=\'true\'] {\n        background: orange;\n      }\n    '], ['\n      display: inline-block;\n      border: 0;\n      border-radius: 50%;\n      width: 12px;\n      height: 12px;\n      background: white;\n      margin: 0 2px;\n      text-indent: 1000px;\n      overflow: hidden;\n      cursor: pointer;\n      outline: none;\n      transition: all .3s;\n\n      &[data-active=\'true\'] {\n        background: orange;\n      }\n    ']),
+    _templateObject4 = _taggedTemplateLiteral(['\n      position: absolute;\n      font-size: 16px;\n      border: 0;\n      outline: none;\n      top: 45%;\n      cursor: pointer;\n      transition: all .3s;\n      padding: 0;\n      color: orange;\n      font-family: Arial;\n      background: none;\n\n      &:disabled {\n        opacity: .2;\n        cursor: default;\n      }\n\n      &[direction="prev"] {\n        left: 5px;\n        &::before {\n          content: "\\25C0";\n        }\n      }\n\n      &[direction="next"] {\n        right: 5px;\n        &::before {\n          content: "\\25b6";\n        }\n      }\n    '], ['\n      position: absolute;\n      font-size: 16px;\n      border: 0;\n      outline: none;\n      top: 45%;\n      cursor: pointer;\n      transition: all .3s;\n      padding: 0;\n      color: orange;\n      font-family: Arial;\n      background: none;\n\n      &:disabled {\n        opacity: .2;\n        cursor: default;\n      }\n\n      &[direction="prev"] {\n        left: 5px;\n        &::before {\n          content: "\\\\25C0";\n        }\n      }\n\n      &[direction="next"] {\n        right: 5px;\n        &::before {\n          content: "\\\\25b6";\n        }\n      }\n    ']);
 
 var _react = __webpack_require__(18);
 
@@ -10038,9 +10039,9 @@ var ReactFreeCarousel = function (_React$Component) {
     value: function renderPagination() {
       var _this8 = this;
 
-      var Pagination = _styledComponents2.default.div(_templateObject);
+      var Pagination = this.props.paginationClass ? _styledComponents2.default.div(_templateObject) : _styledComponents2.default.div(_templateObject2);
 
-      var PaginationDot = _styledComponents2.default.button(_templateObject2);
+      var PaginationDot = this.props.paginationDotClass ? _styledComponents2.default.button(_templateObject) : _styledComponents2.default.button(_templateObject3);
 
       return _react2.default.createElement(
         Pagination,
@@ -10082,11 +10083,11 @@ var ReactFreeCarousel = function (_React$Component) {
       };
 
       var nextPage = calculateNextPage(kind);
-      var classPart = (0, _lodash4.default)(kind) + 'Class';
-      var Arrow = _styledComponents2.default.button(_templateObject3);
+      var className = this.props['arrow' + (0, _lodash4.default)(kind) + 'Class'];
+      var Arrow = className ? _styledComponents2.default.button(_templateObject) : _styledComponents2.default.button(_templateObject4);
 
       return _react2.default.createElement(Arrow, {
-        className: this.props['arrow' + classPart],
+        className: className,
         direction: kind,
         disabled: nextPage === null,
         onClick: function onClick() {

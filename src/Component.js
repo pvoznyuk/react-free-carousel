@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import capitalize from 'lodash.capitalize';
 
-import styles from './example/defaultStyles.css';
+import styles from './defaultStyles.css';
 
 const RENDER_DEBOUNCING_TIMEOUT = 600;
 const toArray = item => item instanceof Array ? item : [item];

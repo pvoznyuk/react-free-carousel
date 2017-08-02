@@ -1,6 +1,6 @@
 {
   "name": "react-free-carousel",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Carousel component for free flex-box layout built with React.",
   "main": "lib/index.js",
   "config": {

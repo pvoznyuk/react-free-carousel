@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 import capitalize from 'lodash.capitalize';
 import styled from 'styled-components';
 
-const RENDER_DEBOUNCING_TIMEOUT = 600;
+const RENDER_DEBOUNCING_TIMEOUT = 500;
 const toArray = item => item instanceof Array ? item : [item];
 
 const prepareParam = (param, basis, decrement = 0) => {
@@ -36,7 +36,10 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   componentDidMount() {
-    this.debouncingRender = debounce(this.reRender, RENDER_DEBOUNCING_TIMEOUT);
+    this.debouncingRender = debounce(() => {
+      this.reRender();
+      setTimeout(this.reRender, 600);
+    }, RENDER_DEBOUNCING_TIMEOUT);
 
     setTimeout(() => {
       const totalPages = this.calculateTotalPages();
@@ -190,7 +193,6 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   renderPagination() {
-
     const Pagination = styled.div`
       position: absolute;
       text-align: center;
@@ -309,12 +311,10 @@ export default class ReactFreeCarousel extends React.Component {
            minPagesToShowPagination, arrows, tileMargin} = this.props;
 
     const childrenToRender = React.Children.map(Array.from(toArray(children)), child => {
-      if (child.type === ReactFreeCarouselTile) {
+      if (child.type.name === 'ReactFreeCarouselTile') {
         return React.cloneElement(child, {
-          parent: this,
           tileMargin,
-          parentWidth: this.wrapper && this.wrapper.clientWidth + tileMargin,
-          updateParent: this.reRender
+          parentWidth: this.wrapper && this.wrapper.clientWidth + tileMargin
         });
       }
       return child;
@@ -445,14 +445,6 @@ export class ReactFreeCarouselTile extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.parentWidth !== this.props.parentWidth) {
-      setTimeout(() => {
-        this.props.updateParent();
-      }, 0);
-    }
-  }
-
   render() {
     const {parentWidth, height, width, tileMargin} = this.props;
     const style = {
@@ -481,7 +473,6 @@ ReactFreeCarouselTile.propTypes = {
     React.PropTypes.arrayOf(React.PropTypes.node),
     React.PropTypes.node
   ]),
-  updateParent: PropTypes.func.isRequired,
   parentWidth: PropTypes.number,
   className: PropTypes.string,
   tileMargin: PropTypes.oneOfType([
@@ -504,3 +495,5 @@ ReactFreeCarouselTile.defaultProps = {
   width: '100%',
   height: '100%'
 };
+
+ReactFreeCarousel.Tile = ReactFreeCarouselTile;

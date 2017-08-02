@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactFreeCarousel, {ReactFreeCarouselTile} from '../../Component';
+import ReactFreeCarousel from '../../index';
 import css from './App.css';
 import Highlight from 'react-highlight.js';
 
@@ -47,33 +47,33 @@ const App = () =>
     arrows={true}
     autoplay={false}
     tileMargin={10}>
-    <ReactFreeCarouselTile width={140} height={'100%'}>
+    <ReactFreeCarousel.Tile width={140} height={'100%'}>
       <div>140px / 100%</div>
-    </ReactFreeCarouselTile>
-    <ReactFreeCarouselTile width={280} height={'50%'}>
+    </ReactFreeCarousel.Tile>
+    <ReactFreeCarousel.Tile width={280} height={'50%'}>
       <div>280px / 50%</div>
-    </ReactFreeCarouselTile>
-    <ReactFreeCarouselTile width={280} height={'50%'}>
+    </ReactFreeCarousel.Tile>
+    <ReactFreeCarousel.Tile width={280} height={'50%'}>
       <div>280px / 50%</div>
-    </ReactFreeCarouselTile>
-    <ReactFreeCarouselTile width={'50%'} height={'100%'}>
+    </ReactFreeCarousel.Tile>
+    <ReactFreeCarousel.Tile width={'50%'} height={'100%'}>
       <div>50% / 100%</div>
-    </ReactFreeCarouselTile>
-    <ReactFreeCarouselTile width={'25%'} height={\`\${100/3}%\`}>
+    </ReactFreeCarousel.Tile>
+    <ReactFreeCarousel.Tile width={'25%'} height={\`\${100/3}%\`}>
       <div>25% / 33.3%</div>
-    </ReactFreeCarouselTile>
-    <ReactFreeCarouselTile width={'25%'} height={\`\${100/3}%\`}>
+    </ReactFreeCarousel.Tile>
+    <ReactFreeCarousel.Tile width={'25%'} height={\`\${100/3}%\`}>
       <div>25% / 33.3%</div>
-    </ReactFreeCarouselTile>
-    <ReactFreeCarouselTile width={'25%'} height={\`\${100/3}%\`}>
+    </ReactFreeCarousel.Tile>
+    <ReactFreeCarousel.Tile width={'25%'} height={\`\${100/3}%\`}>
       <div>25% / 33.3%</div>
-    </ReactFreeCarouselTile>
-    <ReactFreeCarouselTile width={'25%'} height="50%">
+    </ReactFreeCarousel.Tile>
+    <ReactFreeCarousel.Tile width={'25%'} height="50%">
       <div>25% / 50%</div>
-    </ReactFreeCarouselTile>
-    <ReactFreeCarouselTile width={'25%'} height="50%">
+    </ReactFreeCarousel.Tile>
+    <ReactFreeCarousel.Tile width={'25%'} height="50%">
       <div>25% / 50%</div>
-    </ReactFreeCarouselTile>
+    </ReactFreeCarousel.Tile>
   </ReactFreeCarousel>
 </div>`}>
         <div className={css.carousel4}>
@@ -81,33 +81,33 @@ const App = () =>
             arrows={true}
             autoplay={false}
             tileMargin={10}>
-            <ReactFreeCarouselTile width={140} height={'100%'}>
+            <ReactFreeCarousel.Tile width={140} height={'100%'}>
               <div className={css.innerTile}>140px / 100%</div>
-            </ReactFreeCarouselTile>
-            <ReactFreeCarouselTile width={280} height={'50%'}>
+            </ReactFreeCarousel.Tile>
+            <ReactFreeCarousel.Tile width={280} height={'50%'}>
               <div className={css.innerTile}>280px / 50%</div>
-            </ReactFreeCarouselTile>
-            <ReactFreeCarouselTile width={280} height={'50%'}>
+            </ReactFreeCarousel.Tile>
+            <ReactFreeCarousel.Tile width={280} height={'50%'}>
               <div className={css.innerTile}>280px / 50%</div>
-            </ReactFreeCarouselTile>
-            <ReactFreeCarouselTile width={'50%'} height={'100%'}>
+            </ReactFreeCarousel.Tile>
+            <ReactFreeCarousel.Tile width={'50%'} height={'100%'}>
               <div className={css.innerTile}>50% / 100%</div>
-            </ReactFreeCarouselTile>
-            <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>
+            </ReactFreeCarousel.Tile>
+            <ReactFreeCarousel.Tile width={'25%'} height={`${100/3}%`}>
               <div className={css.innerTile}>25% / 33.3%</div>
-            </ReactFreeCarouselTile>
-            <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>
+            </ReactFreeCarousel.Tile>
+            <ReactFreeCarousel.Tile width={'25%'} height={`${100/3}%`}>
               <div className={css.innerTile}>25% / 33.3%</div>
-            </ReactFreeCarouselTile>
-            <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>
+            </ReactFreeCarousel.Tile>
+            <ReactFreeCarousel.Tile width={'25%'} height={`${100/3}%`}>
               <div className={css.innerTile}>25% / 33.3%</div>
-            </ReactFreeCarouselTile>
-            <ReactFreeCarouselTile width={'25%'} height="50%">
+            </ReactFreeCarousel.Tile>
+            <ReactFreeCarousel.Tile width={'25%'} height="50%">
               <div className={css.innerTile}>25% / 50%</div>
-            </ReactFreeCarouselTile>
-            <ReactFreeCarouselTile width={'25%'} height="50%">
+            </ReactFreeCarousel.Tile>
+            <ReactFreeCarousel.Tile width={'25%'} height="50%">
               <div className={css.innerTile}>25% / 50%</div>
-            </ReactFreeCarouselTile>
+            </ReactFreeCarousel.Tile>
           </ReactFreeCarousel>
         </div>
       </Panel>
@@ -257,29 +257,29 @@ const App = () =>
   width={'50vw'}
   height={'30vh'}
   arrows={true}>
-  <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+  <ReactFreeCarousel.Tile width={'100%'} height={'100%'}>
     <div className={css.innerTile}>Slide 1</div>
-  </ReactFreeCarouselTile>
-  <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+  </ReactFreeCarousel.Tile>
+  <ReactFreeCarousel.Tile width={'100%'} height={'100%'}>
     <div className={css.innerTile}>Slide 2</div>
-  </ReactFreeCarouselTile>
-  <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+  </ReactFreeCarousel.Tile>
+  <ReactFreeCarousel.Tile width={'100%'} height={'100%'}>
     <div className={css.innerTile}>Slide 3</div>
-  </ReactFreeCarouselTile>
+  </ReactFreeCarousel.Tile>
 </ReactFreeCarousel>`}>
       <ReactFreeCarousel
         width={'50vw'}
         height={'30vh'}
         arrows={true}>
-        <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+        <ReactFreeCarousel.Tile width={'100%'} height={'100%'}>
           <div className={css.innerTile}>Slide 1</div>
-        </ReactFreeCarouselTile>
-        <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+        </ReactFreeCarousel.Tile>
+        <ReactFreeCarousel.Tile width={'100%'} height={'100%'}>
           <div className={css.innerTile}>Slide 2</div>
-        </ReactFreeCarouselTile>
-        <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+        </ReactFreeCarousel.Tile>
+        <ReactFreeCarousel.Tile width={'100%'} height={'100%'}>
           <div className={css.innerTile}>Slide 3</div>
-        </ReactFreeCarouselTile>
+        </ReactFreeCarousel.Tile>
       </ReactFreeCarousel>
     </Panel>
 

@@ -22,24 +22,52 @@ Don't forget to manually install peer dependencies (`react`) if you use npm@3.
 
 
 ## Usage
+
+### Carousel with custom tiles
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactFreeCarousel from 'react-free-carousel';
 
 const App = () => (
-  <div className={css.carousel}>
-    <ReactFreeCarousel>
-      <div className={css.tileBig}>1</div>
-      <div className={css.tileBigTripple}>2</div>
-      <div className={css.tileMedium}>3</div>
-      <div className={css.tileMedium}>4</div>
-      <div className={css.tileBigTripple}>5</div>
-      <div className={css.tileBig}>6</div>
-      <div className={css.tileBig}>7</div>
-      <div className={css.tileSmall}>8</div>
-      <div className={css.tileSmall}>9</div>
-      <div className={css.tileBigDouble}>10</div>
+  <div>
+    <ReactFreeCarousel width={'600px'} height={'400px'}>
+      <div className={css.smallTileClass}>1</div>
+      <div className={css.smallTileClass}>2</div>
+      <div className={css.mediumTileClass}>3</div>
+      <div className={css.mediumTileClass}>4</div>
+      <div className={css.bigTileClass}>5</div>
+      <div className={css.bigTileClass}>6</div>
+    </ReactFreeCarousel>
+  </div>
+);
+
+const appRoot = document.createElement('div');
+document.body.appendChild(appRoot);
+ReactDOM.render(<App />, appRoot);
+```
+
+### Carousel with ReactFreeCarouselTile
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactFreeCarousel, { ReactFreeCarouselTile } from 'react-free-carousel';
+
+const App = () => (
+  <div style={{width: '70vw', height: '30vh'}}>
+    <ReactFreeCarousel
+      arrows={true}
+      autoplay={false}
+      tileMargin={10}>
+      <ReactFreeCarouselTile width={140} height={'100%'}>Tile 1</ReactFreeCarouselTile>
+      <ReactFreeCarouselTile width={280} height={'50%'}>Tile 2</ReactFreeCarouselTile>
+      <ReactFreeCarouselTile width={280} height={'50%'}>Tile 3</ReactFreeCarouselTile>
+      <ReactFreeCarouselTile width={'50%'} height={'100%'}>Tile 4</ReactFreeCarouselTile>
+      <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>Tile 5</ReactFreeCarouselTile>
+      <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>Tile 6</ReactFreeCarouselTile>
+      <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>Tile 7</ReactFreeCarouselTile>
+      <ReactFreeCarouselTile width={'25%'} height="50%">Tile 8</ReactFreeCarouselTile>
+      <ReactFreeCarouselTile width={'25%'} height="50%">Tile 9</ReactFreeCarouselTile>
     </ReactFreeCarousel>
   </div>
 );
@@ -51,6 +79,8 @@ ReactDOM.render(<App />, appRoot);
 
 ### Properties
 
+#### ReactFreeCarousel
+
 | Propertie                  | Type                | Default Value | Description |
 |----------------------------|---------------------|---------------|-------------|
 | `className`                | string              | null          | Just className.
@@ -58,6 +88,7 @@ ReactDOM.render(<App />, appRoot);
 | `transitionSpeed`          | number              | 500           | Slide changing speed.
 | `height`                   | string or number    | '100%'        | Carousel height.
 | `width`                    | string or number    | '100%'        | Carousel width.
+| `tileMargin`               | string or number    | 0             | Margin between `ReactFreeCarouselTile` tiles.
 | `autoplay`                 | boolean             | true          | Autostart carousel.
 | `page`                     | number              | 0             | Page to show (0-indexed).
 | `slide`                    | number              | null          | Slide to scroll to (0-indexed).
@@ -69,6 +100,15 @@ ReactDOM.render(<App />, appRoot);
 | `arrows`                   | boolean             | false         | Show/hide the prev/next arrows.
 | `arrowPrevClass`           | string              | ''            | Previous button className.
 | `arrowNextClass`           | string              | ''            | Next button className.
+
+#### ReactFreeCarouselTile
+
+| Propertie                  | Type                | Default Value | Description |
+|----------------------------|---------------------|---------------|-------------|
+| `className`                | string              | null          | Tile custom className.
+| `height`                   | string or number    | '100%'        | Tile height.
+| `width`                    | string or number    | '100%'        | Tile width.
+
 
 ## Development and testing
 

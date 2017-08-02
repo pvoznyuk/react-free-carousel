@@ -3,8 +3,27 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import capitalize from 'lodash.capitalize';
 
-const RENDER_DEBOUNCING_TIMEOUT = 500;
+import styles from './example/defaultStyles.css';
+
+const RENDER_DEBOUNCING_TIMEOUT = 600;
 const toArray = item => item instanceof Array ? item : [item];
+
+const prepareParam = (param, basis, decrement = 0) => {
+  if (typeof param === 'string') {
+    if (param.includes('%') && basis) {
+      return `${Math.floor(parseInt(param, 10) / 100 * basis) - decrement}px`;
+    } else if (!basis && decrement !== 0) {
+      return `calc(${param} - ${decrement}px)`;
+    }
+    return param;
+  }
+
+  if (typeof param === 'number') {
+    return `${param - decrement}px`;
+  }
+
+  return '100%';
+};
 
 export default class ReactFreeCarousel extends React.Component {
   constructor(props) {
@@ -18,7 +37,7 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   componentDidMount() {
-    this.debouncingRender = debounce(this.reRender, RENDER_DEBOUNCING_TIMEOUT).bind(this);
+    this.debouncingRender = debounce(this.reRender, RENDER_DEBOUNCING_TIMEOUT);
 
     setTimeout(() => {
       const totalPages = this.calculateTotalPages();
@@ -54,6 +73,8 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   reRender(scrollToStart = true) {
+    this.stopCarousel();
+
     const totalPages = this.calculateTotalPages();
     let page = scrollToStart && this.state.pages !== totalPages ? 0 : this.state.page;
 
@@ -61,10 +82,10 @@ export default class ReactFreeCarousel extends React.Component {
       page = totalPages;
     }
 
-    this.stopCarousel();
-
-    if (page === 0) {
+    if (page === 0 && this.container) {
+      this.container.style.transition = 'none';
       this.container.style.marginLeft = '0px';
+      this.container.style.transition = `margin-left ${this.props.transitionSpeed}ms`;
     }
 
     setTimeout(() => {
@@ -127,20 +148,22 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   calculateTotalPages() {
-    const wrapperWidth = this.wrapper.clientWidth;
+    const wrapperWidth = this.wrapper ? this.wrapper.clientWidth : 0;
     const offsetPage = new Map();
     const pageOffset = new Map();
     let pages = 0;
 
     if (this.container.children.length) {
       Array.from(this.container.children).forEach((tile, index) => {
-        const tileLeft = tile.offsetLeft - parseInt(window.getComputedStyle(tile).marginLeft, 10);
+        const tileLeft = tile.offsetLeft -
+          this.container.offsetLeft -
+          parseInt(window.getComputedStyle(tile).marginLeft, 10);
         const tileWidth = tile.clientWidth;
 
         if (offsetPage.has(tileLeft)) {
           tile.setAttribute('data-first', 'false');
-          tile.setAttribute('data-page', offsetPage.get(tileLeft));
-          tile.setAttribute('data-offset', tileLeft);
+          tile.setAttribute('data-page', `${offsetPage.get(tileLeft)}`);
+          tile.setAttribute('data-offset', `${tileLeft}`);
         } else {
           const currentPageOffset = pageOffset.get(pages) || 0;
 
@@ -154,8 +177,8 @@ export default class ReactFreeCarousel extends React.Component {
             pages = pages + 1;
             tile.setAttribute('data-first', 'true');
           }
-          tile.setAttribute('data-page', pages);
-          tile.setAttribute('data-offset', tileLeft);
+          tile.setAttribute('data-page', `${pages}`);
+          tile.setAttribute('data-offset', `${tileLeft}`);
           offsetPage.set(tileLeft, pages);
           if (!pageOffset.has(pages)) {
             pageOffset.set(pages, tileLeft);
@@ -167,22 +190,10 @@ export default class ReactFreeCarousel extends React.Component {
     return pages;
   }
 
-  prepareParam(param) {
-    if (typeof param === 'string') {
-      return param;
-    }
-
-    if (typeof param === 'number') {
-      return `${param}px`;
-    }
-
-    return '100%';
-  }
-
   renderPagination() {
     return (
       <div
-        className={this.props.paginationClass}
+        className={this.props.paginationClass || styles.defaultPaginationClass}
         ref={node => {
           this.pagination = node;
         }}
@@ -219,10 +230,11 @@ export default class ReactFreeCarousel extends React.Component {
     };
 
     const nextPage = calculateNextPage(kind);
+    const classPart = `${capitalize(kind)}Class`;
 
     return (
       <button
-        className={this.props[`arrow${capitalize(kind)}Class`]}
+        className={this.props[`arrow${classPart}`] || styles[`defaultArrow${classPart}`]}
         disabled={nextPage === null}
         onClick={() => {
           this.gotoPage(nextPage);
@@ -234,31 +246,42 @@ export default class ReactFreeCarousel extends React.Component {
 
   render() {
     const {children, className, width, height, transitionSpeed, showPagination,
-           minPagesToShowPagination, arrows} = this.props;
+           minPagesToShowPagination, arrows, tileMargin} = this.props;
 
-    const childrenToRender = Array.isArray(children) ? children : [children];
+    const childrenToRender = React.Children.map(Array.from(toArray(children)), child => {
+      if (child.type === ReactFreeCarouselTile) {
+        return React.cloneElement(child, {
+          parent: this,
+          tileMargin,
+          parentWidth: this.wrapper && this.wrapper.clientWidth + tileMargin,
+          updateParent: this.reRender
+        });
+      }
+      return child;
+    });
 
     const wrapperStyling = {
       position: 'relative',
-      width: this.prepareParam(width),
-      height: this.prepareParam(height)
+      width: prepareParam(width, null),
+      height: prepareParam(height, null)
     };
 
     const viewportStyling = {
       position: 'relative',
-      width: '100%',
       overflow: 'hidden',
-      height: '100%'
+      width: `calc(100% + ${prepareParam(tileMargin)})`,
+      height: `calc(100% + ${prepareParam(tileMargin)})`
     };
 
     const containerStyling = {
       overflow: 'hidden',
-      position: 'relative',
+      position: 'static',
       alignContent: 'flex-start',
       display: 'flex',
       flexDirection: 'column',
       flexWrap: 'wrap',
       height: '100%',
+      transform: `translate(-${prepareParam(tileMargin)}, -${prepareParam(tileMargin)})`,
       transition: `margin-left ${transitionSpeed}ms`
     };
 
@@ -312,6 +335,10 @@ ReactFreeCarousel.propTypes = {
     PropTypes.string,
     PropTypes.number
   ]),
+  tileMargin: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   interval: PropTypes.number,
   autoplay: PropTypes.bool,
   showPagination: PropTypes.bool,
@@ -336,6 +363,7 @@ ReactFreeCarousel.defaultProps = {
   autoplay: true,
   showPagination: true,
   page: 0,
+  tileMargin: 0,
   slide: null,
   minPagesToShowPagination: 2,
   paginationClass: '',
@@ -344,4 +372,74 @@ ReactFreeCarousel.defaultProps = {
   arrows: false,
   arrowPrevClass: '',
   arrowNextClass: ''
+};
+
+
+/* Tile*/
+
+export class ReactFreeCarouselTile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      parentWidth: null
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.parentWidth !== this.props.parentWidth) {
+      setTimeout(() => {
+        this.props.updateParent();
+      }, 0);
+    }
+  }
+
+  render() {
+    const {parentWidth, height, width, tileMargin} = this.props;
+    const style = {
+      height: prepareParam(height, null, tileMargin),
+      width: prepareParam(width, parentWidth, tileMargin),
+      marginTop: `${prepareParam(tileMargin)}`,
+      marginLeft: `${prepareParam(tileMargin)}`
+    };
+
+    return (
+      <div
+        className={this.props.className || styles.defaultTile}
+        ref={node => {
+          this.tile = node;
+        }}
+        style={style}>
+        { this.props.children }
+      </div>
+    );
+  }
+}
+
+ReactFreeCarouselTile.propTypes = {
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.node
+  ]),
+  updateParent: PropTypes.func.isRequired,
+  parentWidth: PropTypes.number,
+  className: PropTypes.string,
+  tileMargin: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
+};
+
+ReactFreeCarouselTile.defaultProps = {
+  className: null,
+  tileMargin: 0,
+  width: '100%',
+  height: '100%'
 };

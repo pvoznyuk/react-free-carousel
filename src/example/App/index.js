@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactFreeCarousel from '../../Component';
+import ReactFreeCarousel, { ReactFreeCarouselTile } from '../../Component';
 import css from './App.css';
 import Highlight from 'react-highlight.js';
 
@@ -13,10 +13,14 @@ const Panel = ({title, code, children}) =>
     <div className="panel-body">
       <h6>Output:</h6>
       {children}
-      <h6>Code:</h6>
-      <Highlight language={'html'}>
-        {code}
-      </Highlight>
+      {code && (
+        <h6>Code:</h6>
+      )}
+      {code && (
+        <Highlight language={'html'}>
+          {code}
+        </Highlight>
+      )}
     </div>
   </div>
 ;
@@ -34,6 +38,79 @@ const App = () =>
     </p>
 
     <h2>Examples:</h2>
+
+      <Panel
+        title="Tile components"
+        code={`
+<div>
+  <ReactFreeCarousel
+    arrows={true}
+    autoplay={false}
+    tileMargin={10}>
+    <ReactFreeCarouselTile width={140} height={'100%'}>
+      <div>140px / 100%</div>
+    </ReactFreeCarouselTile>
+    <ReactFreeCarouselTile width={280} height={'50%'}>
+      <div>280px / 50%</div>
+    </ReactFreeCarouselTile>
+    <ReactFreeCarouselTile width={280} height={'50%'}>
+      <div>280px / 50%</div>
+    </ReactFreeCarouselTile>
+    <ReactFreeCarouselTile width={'50%'} height={'100%'}>
+      <div>50% / 100%</div>
+    </ReactFreeCarouselTile>
+    <ReactFreeCarouselTile width={'25%'} height={\`\${100/3}%\`}>
+      <div>25% / 33.3%</div>
+    </ReactFreeCarouselTile>
+    <ReactFreeCarouselTile width={'25%'} height={\`\${100/3}%\`}>
+      <div>25% / 33.3%</div>
+    </ReactFreeCarouselTile>
+    <ReactFreeCarouselTile width={'25%'} height={\`\${100/3}%\`}>
+      <div>25% / 33.3%</div>
+    </ReactFreeCarouselTile>
+    <ReactFreeCarouselTile width={'25%'} height="50%">
+      <div>25% / 50%</div>
+    </ReactFreeCarouselTile>
+    <ReactFreeCarouselTile width={'25%'} height="50%">
+      <div>25% / 50%</div>
+    </ReactFreeCarouselTile>
+  </ReactFreeCarousel>
+</div>`}>
+        <div className={css.carousel4}>
+          <ReactFreeCarousel
+            arrows={true}
+            autoplay={false}
+            tileMargin={10}>
+            <ReactFreeCarouselTile width={140} height={'100%'}>
+              <div className={css.innerTile}>140px / 100%</div>
+            </ReactFreeCarouselTile>
+            <ReactFreeCarouselTile width={280} height={'50%'}>
+              <div className={css.innerTile}>280px / 50%</div>
+            </ReactFreeCarouselTile>
+            <ReactFreeCarouselTile width={280} height={'50%'}>
+              <div className={css.innerTile}>280px / 50%</div>
+            </ReactFreeCarouselTile>
+            <ReactFreeCarouselTile width={'50%'} height={'100%'}>
+              <div className={css.innerTile}>50% / 100%</div>
+            </ReactFreeCarouselTile>
+            <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>
+              <div className={css.innerTile}>25% / 33.3%</div>
+            </ReactFreeCarouselTile>
+            <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>
+              <div className={css.innerTile}>25% / 33.3%</div>
+            </ReactFreeCarouselTile>
+            <ReactFreeCarouselTile width={'25%'} height={`${100/3}%`}>
+              <div className={css.innerTile}>25% / 33.3%</div>
+            </ReactFreeCarouselTile>
+            <ReactFreeCarouselTile width={'25%'} height="50%">
+              <div className={css.innerTile}>25% / 50%</div>
+            </ReactFreeCarouselTile>
+            <ReactFreeCarouselTile width={'25%'} height="50%">
+              <div className={css.innerTile}>25% / 50%</div>
+            </ReactFreeCarouselTile>
+          </ReactFreeCarousel>
+        </div>
+      </Panel>
 
     <Panel
       title="Autoplay, no pagination"
@@ -176,26 +253,35 @@ const App = () =>
     <Panel
       title="One slide pre page mode"
       code={`
-  <ReactFreeCarousel
-    arrowNextClass={css.arrowNext}
-    arrowPrevClass={css.arrowPrev}
-    arrows={true}>
-    <div className={css.tileFullwidth}>1</div>
-    <div className={css.tileFullwidth}>2</div>
-    <div className={css.tileFullwidth}>3</div>
-  </ReactFreeCarousel>`}>
-      <div className={css.carousel2}>
-        <ReactFreeCarousel
-          arrowNextClass={css.arrowNext}
-          arrowPrevClass={css.arrowPrev}
-          arrows={true}>
-          <div className={css.tileFullwidth}>1</div>
-          <div className={css.tileFullwidth}>2</div>
-          <div className={css.tileFullwidth}>3</div>
-        </ReactFreeCarousel>
-      </div>
+<ReactFreeCarousel
+  width={'50vw'}
+  height={'30vh'}
+  arrows={true}>
+  <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+    <div className={css.innerTile}>Slide 1</div>
+  </ReactFreeCarouselTile>
+  <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+    <div className={css.innerTile}>Slide 2</div>
+  </ReactFreeCarouselTile>
+  <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+    <div className={css.innerTile}>Slide 3</div>
+  </ReactFreeCarouselTile>
+</ReactFreeCarousel>`}>
+      <ReactFreeCarousel
+        width={'50vw'}
+        height={'30vh'}
+        arrows={true}>
+        <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+          <div className={css.innerTile}>Slide 1</div>
+        </ReactFreeCarouselTile>
+        <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+          <div className={css.innerTile}>Slide 2</div>
+        </ReactFreeCarouselTile>
+        <ReactFreeCarouselTile width={'100%'} height={'100%'}>
+          <div className={css.innerTile}>Slide 3</div>
+        </ReactFreeCarouselTile>
+      </ReactFreeCarousel>
     </Panel>
-
 
     <Panel
       title="Zoomed carousel"

@@ -3,8 +3,9 @@
 }
 
 .carousel,
+.carousel2,
 .carousel3,
-.carousel2 {
+.carousel4 {
   width: 640px;
   height: 200px;
   background: #f0f5f0;
@@ -19,6 +20,14 @@
 
 .carousel3 {
   width: 100%;
+}
+
+.carousel4 {
+  padding: 0;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  height: 30vh;
+  width: 70vw;
 }
 
 .tileSmall,
@@ -40,6 +49,18 @@
   text-align: center;
   padding: 0;
   vertical-align: middle;
+}
+
+.innerTile {
+    background-color: lightblue;
+    border: 1px solid #676;
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px;
 }
 
 .tileSmall::after { content: ', Page: ' attr(data-page); }
@@ -86,35 +107,30 @@
   width: 465px;
 }
 
-[role="navigation"] {
-  padding: 10px;
+.pagination[role="navigation"]  {
+  position: absolute;
   text-align: center;
+  left: 0px;
+  right: 0px;
+  bottom: -35px;
+  background: lightblue;
+  padding: 5px;
 }
 
-[role="navigation"] button {
+[role="navigation"] button.dot {
   display: inline-block;
   border: 0;
   border-radius: 50%;
   width: 12px;
   height: 12px;
-  background: grey;
+  background: white;
   margin: 0 2px;
   text-indent: 1000px;
   overflow: hidden;
   cursor: pointer;
   outline: none;
   transition: all .3s;
-}
 
-[role="navigation"] button[data-active='true'] {
-  background: orange;
-}
-
-.pagination[role="navigation"]  {
-  background: lightblue;
-}
-
-[role="navigation"] button.dot {
   border-radius: 0;
   text-indent: 0;
   line-height: 16px;

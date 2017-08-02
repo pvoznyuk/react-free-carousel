@@ -4,5 +4,7 @@
 const ReactFreeCarousel = require('./Component').default;
 const ReactFreeCarouselTile = require('./Component').ReactFreeCarouselTile;
 
-module.exports = {ReactFreeCarouselTile};
+module.exports = {
+  ReactFreeCarouselTile
+};
 module.exports.default = ReactFreeCarousel;

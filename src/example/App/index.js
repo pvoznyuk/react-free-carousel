@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactFreeCarousel, { ReactFreeCarouselTile } from '../../Component';
+import ReactFreeCarousel, {ReactFreeCarouselTile} from '../../Component';
 import css from './App.css';
 import Highlight from 'react-highlight.js';
 

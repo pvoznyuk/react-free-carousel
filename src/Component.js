@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import capitalize from 'lodash.capitalize';
-
-import styles from './defaultStyles.css';
+import styled from 'styled-components';
 
 const RENDER_DEBOUNCING_TIMEOUT = 600;
 const toArray = item => item instanceof Array ? item : [item];
@@ -191,16 +190,44 @@ export default class ReactFreeCarousel extends React.Component {
   }
 
   renderPagination() {
+
+    const Pagination = styled.div`
+      position: absolute;
+      text-align: center;
+      left: 10px;
+      right: 10px;
+      bottom: 0px;
+    `;
+
+    const PaginationDot = styled.button`
+      display: inline-block;
+      border: 0;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+      background: white;
+      margin: 0 2px;
+      text-indent: 1000px;
+      overflow: hidden;
+      cursor: pointer;
+      outline: none;
+      transition: all .3s;
+
+      &[data-active='true'] {
+        background: orange;
+      }
+    `;
+
     return (
-      <div
-        className={this.props.paginationClass || styles.defaultPaginationClass}
+      <Pagination
+        className={this.props.paginationClass}
         ref={node => {
           this.pagination = node;
         }}
         role="navigation">
         {
           [...Array(this.state.pages + 1)].map((e, i) =>
-            <button
+            <PaginationDot
               aria-label={`Goto Page ${i + 1}`}
               className={`
                 ${this.props.paginationDotClass}
@@ -211,10 +238,10 @@ export default class ReactFreeCarousel extends React.Component {
                 this.gotoPage(i);
               }}>
               {i + 1}
-            </button>
+            </PaginationDot>
           )
         }
-      </div>
+      </Pagination>
     );
   }
 
@@ -231,10 +258,43 @@ export default class ReactFreeCarousel extends React.Component {
 
     const nextPage = calculateNextPage(kind);
     const classPart = `${capitalize(kind)}Class`;
+    const Arrow = styled.button`
+      position: absolute;
+      font-size: 16px;
+      border: 0;
+      outline: none;
+      top: 45%;
+      cursor: pointer;
+      transition: all .3s;
+      padding: 0;
+      color: orange;
+      font-family: Arial;
+      background: none;
+
+      &:disabled {
+        opacity: .2;
+        cursor: default;
+      }
+
+      &[direction="prev"] {
+        left: 5px;
+        &::before {
+          content: "\\25C0";
+        }
+      }
+
+      &[direction="next"] {
+        right: 5px;
+        &::before {
+          content: "\\25b6";
+        }
+      }
+    `;
 
     return (
-      <button
-        className={this.props[`arrow${classPart}`] || styles[`defaultArrow${classPart}`]}
+      <Arrow
+        className={this.props[`arrow${classPart}`]}
+        direction={kind}
         disabled={nextPage === null}
         onClick={() => {
           this.gotoPage(nextPage);
@@ -396,6 +456,7 @@ export class ReactFreeCarouselTile extends React.Component {
   render() {
     const {parentWidth, height, width, tileMargin} = this.props;
     const style = {
+      position: 'relative',
       height: prepareParam(height, null, tileMargin),
       width: prepareParam(width, parentWidth, tileMargin),
       marginTop: `${prepareParam(tileMargin)}`,
@@ -404,7 +465,7 @@ export class ReactFreeCarouselTile extends React.Component {
 
     return (
       <div
-        className={this.props.className || styles.defaultTile}
+        className={this.props.className}
         ref={node => {
           this.tile = node;
         }}
